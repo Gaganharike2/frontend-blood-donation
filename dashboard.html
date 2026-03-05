@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeLink - User Dashboard</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+background:#f4f6fb;
+}
+.sidebar{
+height:100vh;
+background:linear-gradient(180deg,#ff416c,#ff4b2b);
+color:white;
+position:fixed;
+width:250px;
+padding:20px;
+}
+.sidebar a{
+color:white;
+display:block;
+padding:10px;
+text-decoration:none;
+border-radius:8px;
+margin-bottom:8px;
+}
+.sidebar a:hover{
+background:rgba(255,255,255,0.2);
+}
+.main{
+margin-left:260px;
+padding:30px;
+}
+.card{
+border:none;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+.badge-status{
+background:#28a745;
+}
+.dark-mode{
+background:#0f172a !important;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h4>🩸 LifeLink</h4>
+<hr>
+<a href="#"><i class="fa fa-home"></i> Overview</a>
+<a href="#"><i class="fa fa-heart"></i> Donations</a>
+<a href="#"><i class="fa fa-bell"></i> Requests</a>
+<a href="#"><i class="fa fa-users"></i> Community</a>
+<a href="#"><i class="fa fa-shield-alt"></i> Security</a>
+<a href="#"><i class="fa fa-robot"></i> AI Insights</a>
+<a href="#"><i class="fa fa-cog"></i> Settings</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+<h2>Welcome Back, Gagandeep 👋</h2>
+<button class="btn btn-dark" onclick="toggleDark()">Toggle Dark Mode</button>
+</div>
+
+<!-- STATS CARDS -->
+<div class="row g-4 mb-4">
+
+<div class="col-md-3">
+<div class="card p-3">
+<h5>Total Donations</h5>
+<h3 id="donations">0</h3>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<h5>Lives Saved</h5>
+<h3 id="lives">0</h3>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<h5>Reward Points</h5>
+<h3>1250</h3>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-3">
+<h5>Status</h5>
+<span class="badge badge-status">Available</span>
+</div>
+</div>
+
+</div>
+
+<!-- TABS FOR 1000 FEATURE SECTIONS -->
+<ul class="nav nav-tabs mb-3">
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview">Overview</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#donation">Donation Management</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#requests">Request System</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#community">Community</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#security">Profile & Security</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#ai">AI & Smart</button></li>
+</ul>
+
+<div class="tab-content">
+
+<!-- OVERVIEW -->
+<div class="tab-pane fade show active" id="overview">
+<div class="card p-4 mb-4">
+<h4>Impact Analytics</h4>
+<canvas id="donationChart"></canvas>
+</div>
+</div>
+
+<!-- DONATION MANAGEMENT -->
+<div class="tab-pane fade" id="donation">
+<div class="card p-4">
+<h4>Donation History</h4>
+<table class="table">
+<thead>
+<tr>
+<th>Date</th>
+<th>Hospital</th>
+<th>Blood Type</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody id="donationTable">
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- REQUEST SYSTEM -->
+<div class="tab-pane fade" id="requests">
+<div class="card p-4">
+<h4>Nearby Blood Requests</h4>
+<div id="requestList"></div>
+</div>
+</div>
+
+<!-- COMMUNITY -->
+<div class="tab-pane fade" id="community">
+<div class="card p-4">
+<h4>Community Engagement</h4>
+<p>Forum • Events • Campaigns • Leaderboard</p>
+</div>
+</div>
+
+<!-- SECURITY -->
+<div class="tab-pane fade" id="security">
+<div class="card p-4">
+<h4>Security Settings</h4>
+<button class="btn btn-outline-primary">Enable 2FA</button>
+<button class="btn btn-outline-danger">Deactivate Account</button>
+</div>
+</div>
+
+<!-- AI -->
+<div class="tab-pane fade" id="ai">
+<div class="card p-4">
+<h4>AI Recommendations</h4>
+<p id="aiSuggestion">Loading suggestions...</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* DARK MODE */
+function toggleDark(){
+document.body.classList.toggle("dark-mode");
+}
+
+/* COUNTER ANIMATION */
+function animateValue(id, end){
+let obj = document.getElementById(id);
+let current = 0;
+let interval = setInterval(()=>{
+current++;
+obj.innerText = current;
+if(current >= end) clearInterval(interval);
+},20);
+}
+animateValue("donations",12);
+animateValue("lives",36);
+
+/* CHART */
+new Chart(document.getElementById("donationChart"),{
+type:'line',
+data:{
+labels:["Jan","Feb","Mar","Apr","May"],
+datasets:[{
+label:"Donations",
+data:[1,3,2,4,2],
+borderColor:"#ff416c",
+fill:false
+}]
+}
+});
+
+/* AJAX SIMULATION */
+
+/* Load Donation History */
+fetch("https://jsonplaceholder.typicode.com/posts?_limit=3")
+.then(res=>res.json())
+.then(data=>{
+let table=document.getElementById("donationTable");
+data.forEach(item=>{
+table.innerHTML += `
+<tr>
+<td>2026-03-01</td>
+<td>City Hospital</td>
+<td>A+</td>
+<td>Completed</td>
+</tr>`;
+});
+});
+
+/* Load Requests */
+fetch("https://jsonplaceholder.typicode.com/users?_limit=3")
+.then(res=>res.json())
+.then(data=>{
+let requestDiv=document.getElementById("requestList");
+data.forEach(user=>{
+requestDiv.innerHTML += `
+<div class="alert alert-danger">
+Urgent O+ needed at ${user.company.name}
+<button class="btn btn-sm btn-light float-end">Respond</button>
+</div>`;
+});
+});
+
+/* AI Suggestion */
+setTimeout(()=>{
+document.getElementById("aiSuggestion").innerText =
+"You are eligible to donate in 5 days. High demand for O+ in your region.";
+},1500);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeLink | Contact & Emergency Support</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+background:#f4f6fb;
+font-family:'Segoe UI',sans-serif;
+transition:0.3s;
+}
+
+.hero{
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+color:white;
+padding:70px 20px;
+text-align:center;
+}
+
+.card{
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.emergency-banner{
+background:#dc3545;
+color:white;
+padding:10px;
+text-align:center;
+}
+
+.dark-mode{
+background:#0f172a;
+color:white;
+}
+
+.dark-mode .card{
+background:#1e293b;
+color:white;
+}
+</style>
+</head>
+<body>
+
+<div class="emergency-banner">
+🚨 Global Emergency Hotline: +91 1800-000-000 | 24/7 Crisis Support
+</div>
+
+<section class="hero">
+<h1>Contact LifeLink</h1>
+<p>Emergency Coordination • Government Liaison • Donor & Hospital Support</p>
+<button class="btn btn-light mt-3" onclick="toggleDark()">Toggle Dark Mode</button>
+</section>
+
+<div class="container mt-5">
+
+<div class="row">
+
+<!-- CONTACT FORM -->
+<div class="col-lg-8">
+<div class="card p-4">
+
+<h4 class="mb-3">Submit a Support Ticket</h4>
+
+<form id="contactForm">
+
+<div class="row">
+<div class="col-md-6 mb-3">
+<label>Name</label>
+<input type="text" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Email</label>
+<input type="email" class="form-control" required>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6 mb-3">
+<label>Phone</label>
+<input type="text" class="form-control">
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Role</label>
+<select class="form-select">
+<option>Donor</option>
+<option>Hospital</option>
+<option>Admin</option>
+<option>NGO</option>
+</select>
+</div>
+</div>
+
+<div class="mb-3">
+<label>Subject</label>
+<select class="form-select">
+<option>General Inquiry</option>
+<option>Emergency Request</option>
+<option>Complaint</option>
+<option>Government Coordination</option>
+<option>Technical Support</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label>Priority Level</label>
+<select class="form-select">
+<option>Low</option>
+<option>Medium</option>
+<option>High</option>
+<option>Critical</option>
+</select>
+</div>
+
+<div class="mb-3">
+<label>Message</label>
+<textarea class="form-control" rows="4" required></textarea>
+</div>
+
+<div class="mb-3">
+<label>Attachment</label>
+<input type="file" class="form-control">
+</div>
+
+<div class="form-check mb-3">
+<input type="checkbox" class="form-check-input" required>
+<label class="form-check-label">I agree to Terms & Privacy Policy</label>
+</div>
+
+<button type="submit" class="btn btn-danger w-100">Submit Ticket</button>
+
+</form>
+
+<div id="ticketResult" class="mt-3"></div>
+
+</div>
+</div>
+
+<!-- SUPPORT INFO -->
+<div class="col-lg-4">
+<div class="card p-4 mb-4">
+<h5>Support Information</h5>
+<p><strong>24/7 Hotline:</strong> +91 1800-000-000</p>
+<p><strong>Email:</strong> support@lifelink.org</p>
+<p><strong>Government Liaison:</strong> govt@lifelink.org</p>
+<p><strong>WHO Coordination:</strong> who@lifelink.org</p>
+<p><strong>Emergency Response Time:</strong> Under 10 Minutes</p>
+</div>
+
+<div class="card p-4">
+<h5>Escalation Levels</h5>
+<ul>
+<li>Level 1: Support Team</li>
+<li>Level 2: Regional Coordinator</li>
+<li>Level 3: National Authority</li>
+<li>Level 4: Global Crisis Federation</li>
+</ul>
+</div>
+</div>
+
+</div>
+
+<!-- MAP -->
+<div class="card p-4 mt-5">
+<h5>Global Coordination Centers</h5>
+<iframe 
+width="100%" 
+height="300" 
+frameborder="0" 
+style="border:0"
+src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=India" 
+allowfullscreen>
+</iframe>
+</div>
+
+</div>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* Dark Mode */
+function toggleDark(){
+document.body.classList.toggle("dark-mode");
+}
+
+/* AJAX Ticket Submission Simulation */
+document.getElementById("contactForm").addEventListener("submit",function(e){
+e.preventDefault();
+
+let result = document.getElementById("ticketResult");
+result.innerHTML = "<div class='alert alert-info'>Processing ticket...</div>";
+
+setTimeout(()=>{
+let ticketID = "LL-" + Math.floor(Math.random()*100000);
+result.innerHTML = `
+<div class='alert alert-success'>
+Ticket Submitted Successfully! <br>
+Your Ticket ID: <strong>${ticketID}</strong><br>
+Our team will contact you shortly.
+</div>`;
+},1500);
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>LifeLink | Cookie Policy</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:#f5f7fb;
+font-family:Segoe UI;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#e63946;
+}
+
+.sidebar{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.policy-content{
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.section-title{
+margin-top:40px;
+}
+
+footer{
+margin-top:50px;
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.cookie-banner{
+position:fixed;
+bottom:0;
+width:100%;
+background:#222;
+color:white;
+padding:15px;
+display:none;
+z-index:9999;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-light bg-white shadow-sm">
+
+<div class="container">
+
+<span class="logo">LifeLink</span>
+
+<a href="index.html" class="btn btn-outline-danger btn-sm">
+Home
+</a>
+
+</div>
+
+</nav>
+
+
+<div class="container mt-5">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="sidebar">
+
+<h5>Cookie Sections</h5>
+
+<ul class="nav flex-column">
+
+<li class="nav-item">
+<a class="nav-link" href="#intro">Introduction</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#types">Cookie Types</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#usage">How We Use Cookies</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#manage">Manage Cookies</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#security">Security</a>
+</li>
+
+</ul>
+
+<hr>
+
+<button class="btn btn-danger w-100" onclick="downloadPolicy()">
+Download Policy
+</button>
+
+</div>
+
+</div>
+
+
+<div class="col-md-9">
+
+<div class="policy-content" id="policyContent">
+
+<h2>Cookie Policy</h2>
+
+<p class="text-muted">
+Last Updated: 2026
+</p>
+
+<h4 id="intro" class="section-title">1. Introduction</h4>
+
+<p>
+
+LifeLink uses cookies to improve user experience, enhance security,
+and analyze platform usage.
+
+</p>
+
+<h4 id="types" class="section-title">2. Types of Cookies</h4>
+
+<ul>
+
+<li>Essential Cookies</li>
+<li>Performance Cookies</li>
+<li>Analytics Cookies</li>
+<li>Functional Cookies</li>
+<li>Security Cookies</li>
+
+</ul>
+
+<h4 id="usage" class="section-title">3. How We Use Cookies</h4>
+
+<ul>
+
+<li>Login authentication</li>
+<li>User session management</li>
+<li>Platform performance monitoring</li>
+<li>Security fraud detection</li>
+<li>Analytics tracking</li>
+
+</ul>
+
+<h4 id="manage" class="section-title">4. Managing Cookies</h4>
+
+<p>
+
+Users can manage cookie preferences through browser settings
+or the LifeLink cookie preference manager.
+
+</p>
+
+<button class="btn btn-primary" onclick="openPreferences()">
+Manage Cookie Preferences
+</button>
+
+
+<h4 id="security" class="section-title">5. Security & Privacy</h4>
+
+<p>
+
+LifeLink uses secure cookies with encryption and follows GDPR,
+HIPAA and global privacy regulations.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="cookie-banner text-center" id="cookieBanner">
+
+This website uses cookies to improve your experience.
+
+<button class="btn btn-success btn-sm ms-2" onclick="acceptCookies()">
+Accept
+</button>
+
+<button class="btn btn-warning btn-sm ms-2" onclick="rejectCookies()">
+Reject
+</button>
+
+</div>
+
+
+<footer>
+
+© 2026 LifeLink Blood Donation Platform
+
+</footer>
+
+
+
+<script>
+
+window.onload=function(){
+
+if(!localStorage.getItem("cookieConsent")){
+
+document.getElementById("cookieBanner").style.display="block";
+
+}
+
+};
+
+
+function acceptCookies(){
+
+localStorage.setItem("cookieConsent","accepted");
+
+document.getElementById("cookieBanner").style.display="none";
+
+fetch("/api/cookie-consent",{
+
+method:"POST",
+
+headers:{"Content-Type":"application/json"},
+
+body:JSON.stringify({consent:"accepted"})
+
+});
+
+}
+
+
+function rejectCookies(){
+
+localStorage.setItem("cookieConsent","rejected");
+
+document.getElementById("cookieBanner").style.display="none";
+
+}
+
+
+function openPreferences(){
+
+alert("Cookie preference dashboard coming soon");
+
+}
+
+
+function downloadPolicy(){
+
+fetch("/api/cookie-policy")
+
+.then(res=>res.blob())
+
+.then(data=>{
+
+let url=window.URL.createObjectURL(data);
+
+let a=document.createElement("a");
+
+a.href=url;
+
+a.download="LifeLink_Cookie_Policy.pdf";
+
+a.click();
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
+```

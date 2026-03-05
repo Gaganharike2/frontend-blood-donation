@@ -1,0 +1,258 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LifeLink | Privacy Policy</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:#f4f6fb;
+font-family:Segoe UI;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#e63946;
+}
+
+.sidebar{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.policy-content{
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.section-title{
+margin-top:40px;
+}
+
+footer{
+margin-top:50px;
+padding:20px;
+background:#111;
+color:white;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-light bg-white shadow-sm">
+
+<div class="container">
+
+<span class="logo">LifeLink</span>
+
+<a href="index.html" class="btn btn-outline-danger btn-sm">
+Home
+</a>
+
+</div>
+
+</nav>
+
+<div class="container mt-5">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="sidebar">
+
+<h5>Policy Sections</h5>
+
+<ul class="nav flex-column">
+
+<li class="nav-item">
+<a class="nav-link" href="#intro">Introduction</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#data">Data Collection</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#usage">Data Usage</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#security">Security</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#rights">User Rights</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#compliance">Compliance</a>
+</li>
+
+</ul>
+
+<hr>
+
+<input type="text" class="form-control" placeholder="Search policy..." id="searchPolicy">
+
+<button class="btn btn-danger w-100 mt-2" onclick="downloadPolicy()">
+Download PDF
+</button>
+
+</div>
+
+</div>
+
+<div class="col-md-9">
+
+<div class="policy-content" id="policyContent">
+
+<h2>Privacy Policy</h2>
+
+<p class="text-muted">
+Last Updated: 2026
+</p>
+
+<h4 id="intro" class="section-title">Introduction</h4>
+
+<p>
+
+LifeLink respects the privacy of blood donors, hospitals, and platform users.
+This policy explains how data is collected, used, protected, and managed.
+
+</p>
+
+<h4 id="data" class="section-title">Data Collection</h4>
+
+<ul>
+
+<li>Personal identification information</li>
+<li>Blood group and donation history</li>
+<li>Location data for donor matching</li>
+<li>Device and usage analytics</li>
+<li>Hospital collaboration data</li>
+
+</ul>
+
+<h4 id="usage" class="section-title">How We Use Data</h4>
+
+<ul>
+
+<li>Connecting donors with hospitals</li>
+<li>Managing emergency blood requests</li>
+<li>Sending alerts and notifications</li>
+<li>Improving system performance</li>
+<li>Enhancing platform security</li>
+
+</ul>
+
+<h4 id="security" class="section-title">Security & Protection</h4>
+
+<p>
+
+LifeLink uses encryption, secure authentication, and monitoring systems
+to protect all stored information and prevent unauthorized access.
+
+</p>
+
+<h4 id="rights" class="section-title">User Rights</h4>
+
+<ul>
+
+<li>Access personal data</li>
+<li>Update personal information</li>
+<li>Request deletion of personal data</li>
+<li>Withdraw consent</li>
+<li>Export personal data</li>
+
+</ul>
+
+<h4 id="compliance" class="section-title">Regulatory Compliance</h4>
+
+<p>
+
+LifeLink complies with healthcare data protection standards including:
+
+</p>
+
+<ul>
+
+<li>GDPR Privacy Regulations</li>
+<li>HIPAA Healthcare Security Guidelines</li>
+<li>National healthcare data protection laws</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 LifeLink Blood Donation Platform
+
+</footer>
+
+<script>
+
+document.getElementById("searchPolicy").addEventListener("keyup",function(){
+
+let value=this.value.toLowerCase();
+
+let text=document.getElementById("policyContent").innerText.toLowerCase();
+
+if(text.includes(value)){
+console.log("Match found");
+}
+
+});
+
+function downloadPolicy(){
+
+fetch("/api/privacy-policy")
+
+.then(res=>res.blob())
+
+.then(data=>{
+
+let url=window.URL.createObjectURL(data);
+
+let a=document.createElement("a");
+
+a.href=url;
+
+a.download="LifeLink_Privacy_Policy.pdf";
+
+a.click();
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
+```

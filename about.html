@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeLink | About Us</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+font-family:'Segoe UI',sans-serif;
+background:#f4f6fb;
+transition:0.3s;
+}
+
+.hero{
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+color:white;
+padding:100px 20px;
+text-align:center;
+}
+
+.card{
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.counter{
+font-size:40px;
+font-weight:bold;
+color:#ff416c;
+}
+
+.timeline{
+border-left:3px solid #ff416c;
+padding-left:20px;
+}
+
+.timeline-item{
+margin-bottom:20px;
+}
+
+.dark-mode{
+background:#0f172a;
+color:white;
+}
+
+.dark-mode .card{
+background:#1e293b;
+color:white;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<h1>About LifeLink</h1>
+<p>Building the World's Most Intelligent Blood Network</p>
+<button class="btn btn-light mt-3" onclick="toggleDark()">Toggle Dark Mode</button>
+</section>
+
+<div class="container mt-5">
+
+<!-- MISSION & VISION -->
+<div class="row text-center mb-5">
+<div class="col-md-6">
+<h3>Our Mission</h3>
+<p>To eliminate blood shortages through AI-driven donor coordination and global transparency.</p>
+</div>
+<div class="col-md-6">
+<h3>Our Vision</h3>
+<p>To build a global humanitarian blood grid powered by technology and trust.</p>
+</div>
+</div>
+
+<!-- IMPACT COUNTERS -->
+<div class="row text-center mb-5">
+<div class="col-md-3">
+<div class="counter" data-target="10540">0</div>
+<p>Registered Donors</p>
+</div>
+<div class="col-md-3">
+<div class="counter" data-target="2320">0</div>
+<p>Hospitals Onboarded</p>
+</div>
+<div class="col-md-3">
+<div class="counter" data-target="1245">0</div>
+<p>Blood Requests Fulfilled</p>
+</div>
+<div class="col-md-3">
+<div class="counter" data-target="8940">0</div>
+<p>Lives Saved</p>
+</div>
+</div>
+
+<!-- TIMELINE -->
+<h3 class="mb-4 text-center">Our Journey</h3>
+<div class="timeline mb-5">
+<div class="timeline-item">
+<h5>2024 - Foundation</h5>
+<p>LifeLink founded with a mission to digitize blood donation networks.</p>
+</div>
+<div class="timeline-item">
+<h5>2025 - AI Integration</h5>
+<p>Implemented predictive donor matching engine.</p>
+</div>
+<div class="timeline-item">
+<h5>2026 - National Expansion</h5>
+<p>Integrated with National Blood Grid and Government APIs.</p>
+</div>
+</div>
+
+<!-- LEADERSHIP -->
+<h3 class="text-center mb-4">Leadership Team</h3>
+<div class="row mb-5">
+<div class="col-md-4">
+<div class="card p-3 text-center">
+<i class="fa fa-user-circle fa-3x mb-3 text-danger"></i>
+<h5>Founder & CEO</h5>
+<p>Visionary leader driving humanitarian tech innovation.</p>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card p-3 text-center">
+<i class="fa fa-user-md fa-3x mb-3 text-danger"></i>
+<h5>Medical Director</h5>
+<p>Ensuring medical compliance and donor safety.</p>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card p-3 text-center">
+<i class="fa fa-shield-alt fa-3x mb-3 text-danger"></i>
+<h5>Security Head</h5>
+<p>Managing cybersecurity and data protection framework.</p>
+</div>
+</div>
+</div>
+
+<!-- TECHNOLOGY -->
+<h3 class="text-center mb-4">Technology & Innovation</h3>
+<div class="row mb-5">
+<div class="col-md-4">
+<div class="card p-3">
+<h5>AI Matching Engine</h5>
+<p>Predictive donor matching with risk scoring.</p>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card p-3">
+<h5>Blockchain Ledger</h5>
+<p>Transparent and immutable donation records.</p>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card p-3">
+<h5>Global Integration</h5>
+<p>WHO sync, National Blood ID, Digital Blood Passport.</p>
+</div>
+</div>
+</div>
+
+<!-- TRANSPARENCY SECTION -->
+<h3 class="text-center mb-4">Transparency & Compliance</h3>
+<div class="card p-4 mb-5">
+<ul>
+<li>HIPAA & GDPR Compliance</li>
+<li>End-to-End Data Encryption</li>
+<li>Annual Public Audit Reports</li>
+<li>Blockchain Donation Ledger</li>
+<li>Government & NGO Partnerships</li>
+</ul>
+<button class="btn btn-danger mt-3" onclick="loadReport()">Load Annual Report (AJAX)</button>
+<div id="reportContent" class="mt-3"></div>
+</div>
+
+<!-- ROADMAP -->
+<h3 class="text-center mb-4">Future Roadmap</h3>
+<div class="card p-4 mb-5">
+<ul>
+<li>Global Crisis Authentication Network</li>
+<li>Smart Biometric Integration</li>
+<li>Drone Emergency Coordination</li>
+<li>AI Supply Chain Optimization</li>
+<li>Global Blood Interoperability Framework</li>
+</ul>
+</div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* Counter Animation */
+const counters = document.querySelectorAll('.counter');
+
+counters.forEach(counter=>{
+const update = ()=>{
+const target = +counter.getAttribute('data-target');
+const count = +counter.innerText;
+const increment = target/200;
+
+if(count < target){
+counter.innerText = Math.ceil(count + increment);
+setTimeout(update,10);
+}else{
+counter.innerText = target;
+}
+};
+update();
+});
+
+/* Dark Mode */
+function toggleDark(){
+document.body.classList.toggle("dark-mode");
+}
+
+/* AJAX Simulation */
+function loadReport(){
+document.getElementById("reportContent").innerHTML = "Loading...";
+setTimeout(()=>{
+document.getElementById("reportContent").innerHTML =
+"<strong>Annual Impact Report 2026:</strong><br>• 10,540 donors<br>• 8,940 lives saved<br>• 98% fulfillment rate.";
+},1000);
+}
+
+</script>
+
+</body>
+</html>

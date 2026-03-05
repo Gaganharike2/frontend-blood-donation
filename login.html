@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeLink Secure Login</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+background:linear-gradient(135deg,#ff416c,#ff4b2b);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.login-card{
+background:white;
+border-radius:20px;
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+padding:40px;
+width:100%;
+max-width:500px;
+}
+.dark-mode{
+background:#1e293b !important;
+color:white;
+}
+.toggle-dark{
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-card" id="loginCard">
+
+<div class="d-flex justify-content-between mb-3">
+<h4>🩸 LifeLink Secure Access</h4>
+<i class="fa fa-moon toggle-dark" onclick="toggleDark()"></i>
+</div>
+
+<!-- ALERT -->
+<div id="alertBox"></div>
+
+<form id="loginForm">
+
+<div class="mb-3">
+<label class="form-label">Login ID</label>
+<input type="text" class="form-control" id="loginId" placeholder="Email / Phone / ID" required>
+</div>
+
+<div class="mb-3 position-relative">
+<label class="form-label">Password</label>
+<input type="password" class="form-control" id="password" required>
+<i class="fa fa-eye position-absolute" style="top:38px; right:15px; cursor:pointer;" onclick="togglePassword()"></i>
+</div>
+
+<div class="mb-3 d-flex justify-content-between">
+<div>
+<input type="checkbox"> Remember Me
+</div>
+<a href="forgot-password.html">Forgot Password?</a>
+</div>
+
+<div class="mb-3">
+<select class="form-select" id="role">
+<option value="donor">Donor</option>
+<option value="hospital">Hospital</option>
+<option value="admin">Admin</option>
+<option value="government">Government</option>
+</select>
+</div>
+
+<!-- CAPTCHA PLACEHOLDER -->
+<div class="mb-3 text-center">
+<div class="border p-3">[ CAPTCHA Verification ]</div>
+</div>
+
+<button type="submit" class="btn btn-danger w-100">
+<i class="fa fa-lock"></i> Secure Login
+</button>
+
+</form>
+
+<hr>
+
+<!-- OTP SECTION -->
+<div class="mt-3">
+<button class="btn btn-outline-primary w-100 mb-2" onclick="showOTP()">
+Login with OTP
+</button>
+
+<div id="otpSection" style="display:none;">
+<input type="text" class="form-control mb-2" placeholder="Enter OTP">
+<button class="btn btn-success w-100">Verify OTP</button>
+</div>
+</div>
+
+<hr>
+
+<!-- SOCIAL LOGIN -->
+<div class="text-center">
+<p>Or login with</p>
+<button class="btn btn-outline-danger me-2"><i class="fab fa-google"></i></button>
+<button class="btn btn-outline-primary me-2"><i class="fab fa-facebook"></i></button>
+<button class="btn btn-outline-dark"><i class="fab fa-apple"></i></button>
+</div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* DARK MODE */
+function toggleDark(){
+document.getElementById("loginCard").classList.toggle("dark-mode");
+}
+
+/* TOGGLE PASSWORD */
+function togglePassword(){
+let input=document.getElementById("password");
+input.type = input.type==="password" ? "text" : "password";
+}
+
+/* OTP TOGGLE */
+function showOTP(){
+document.getElementById("otpSection").style.display="block";
+}
+
+/* LOGIN AJAX SIMULATION */
+let attempts=0;
+
+document.getElementById("loginForm").addEventListener("submit",function(e){
+e.preventDefault();
+
+let loginId=document.getElementById("loginId").value;
+let role=document.getElementById("role").value;
+let alertBox=document.getElementById("alertBox");
+
+attempts++;
+
+if(attempts>=5){
+alertBox.innerHTML=`<div class="alert alert-danger">Account locked due to multiple failed attempts.</div>`;
+return;
+}
+
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+.then(res=>res.json())
+.then(data=>{
+alertBox.innerHTML=`<div class="alert alert-success">Login Successful! Redirecting to ${role} dashboard...</div>`;
+
+setTimeout(()=>{
+if(role==="donor"){
+window.location.href="donor-dashboard.html";
+}
+if(role==="hospital"){
+window.location.href="hospital-dashboard.html";
+}
+if(role==="admin"){
+window.location.href="admin.html";
+}
+if(role==="government"){
+window.location.href="admin.html";
+}
+},1500);
+})
+.catch(()=>{
+alertBox.innerHTML=`<div class="alert alert-danger">Invalid Credentials</div>`;
+});
+});
+
+</script>
+
+</body>
+</html>

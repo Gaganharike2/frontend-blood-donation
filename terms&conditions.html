@@ -1,0 +1,322 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>LifeLink | Terms & Conditions</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:#f5f7fb;
+font-family:Segoe UI;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#e63946;
+}
+
+.sidebar{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.policy-content{
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.section-title{
+margin-top:40px;
+}
+
+footer{
+margin-top:50px;
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-light bg-white shadow-sm">
+
+<div class="container">
+
+<span class="logo">LifeLink</span>
+
+<a href="index.html" class="btn btn-outline-danger btn-sm">
+Home
+</a>
+
+</div>
+
+</nav>
+
+
+<div class="container mt-5">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="sidebar">
+
+<h5>Sections</h5>
+
+<ul class="nav flex-column">
+
+<li class="nav-item">
+<a class="nav-link" href="#intro">Introduction</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#usage">Platform Usage</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#responsibility">User Responsibilities</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#liability">Liability</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#accounts">Account Policies</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#compliance">Compliance</a>
+</li>
+
+</ul>
+
+<hr>
+
+<input type="text" class="form-control" placeholder="Search Terms..." id="searchTerms">
+
+<button class="btn btn-danger w-100 mt-2" onclick="downloadTerms()">
+Download Terms PDF
+</button>
+
+</div>
+
+</div>
+
+
+<div class="col-md-9">
+
+<div class="policy-content" id="termsContent">
+
+<h2>Terms & Conditions</h2>
+
+<p class="text-muted">
+Effective Date: 2026
+</p>
+
+
+<h4 id="intro" class="section-title">1. Introduction</h4>
+
+<p>
+
+Welcome to LifeLink, a digital platform connecting blood donors, hospitals,
+and emergency blood request systems.
+
+By using this platform you agree to follow all policies, rules, and regulations.
+
+</p>
+
+
+<h4 id="usage" class="section-title">2. Platform Usage</h4>
+
+<ul>
+
+<li>Users must provide accurate personal information.</li>
+
+<li>Hospitals must verify emergency blood requests.</li>
+
+<li>Donors must meet medical eligibility criteria.</li>
+
+<li>Platform misuse is strictly prohibited.</li>
+
+<li>LifeLink may suspend accounts violating policies.</li>
+
+</ul>
+
+
+<h4 id="responsibility" class="section-title">3. User Responsibilities</h4>
+
+<ul>
+
+<li>Maintain account security.</li>
+
+<li>Provide accurate medical and contact information.</li>
+
+<li>Follow donation safety guidelines.</li>
+
+<li>Respond responsibly to emergency requests.</li>
+
+<li>Respect platform community standards.</li>
+
+</ul>
+
+
+<h4 id="liability" class="section-title">4. Liability Disclaimer</h4>
+
+<p>
+
+LifeLink acts as a coordination platform and does not provide
+medical advice. Hospitals and medical professionals are responsible
+for clinical decisions and procedures.
+
+</p>
+
+
+<h4 id="accounts" class="section-title">5. Account Management</h4>
+
+<ul>
+
+<li>Users must verify their accounts.</li>
+
+<li>Accounts may be suspended for suspicious activity.</li>
+
+<li>Password security must be maintained by the user.</li>
+
+<li>Multi-factor authentication may be required.</li>
+
+</ul>
+
+
+<h4 id="compliance" class="section-title">6. Legal & Compliance</h4>
+
+<p>
+
+LifeLink follows international data protection standards including
+GDPR, HIPAA, and healthcare security guidelines.
+
+</p>
+
+
+<div class="mt-5">
+
+<div class="form-check">
+
+<input class="form-check-input" type="checkbox" id="agreeTerms">
+
+<label class="form-check-label">
+I agree to the LifeLink Terms & Conditions
+</label>
+
+</div>
+
+<button class="btn btn-success mt-3" onclick="acceptTerms()">
+Accept Terms
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+© 2026 LifeLink Blood Donation Platform
+
+</footer>
+
+
+
+<script>
+
+document.getElementById("searchTerms").addEventListener("keyup",function(){
+
+let value=this.value.toLowerCase();
+
+let text=document.getElementById("termsContent").innerText.toLowerCase();
+
+if(text.includes(value)){
+console.log("Match Found");
+}
+
+});
+
+
+function downloadTerms(){
+
+fetch("/api/terms")
+
+.then(res=>res.blob())
+
+.then(data=>{
+
+let url=window.URL.createObjectURL(data);
+
+let a=document.createElement("a");
+
+a.href=url;
+
+a.download="LifeLink_Terms.pdf";
+
+a.click();
+
+});
+
+}
+
+
+
+function acceptTerms(){
+
+if(document.getElementById("agreeTerms").checked){
+
+fetch("/api/accept-terms",{
+method:"POST"
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+alert("Terms Accepted Successfully");
+
+});
+
+}else{
+
+alert("Please agree to the Terms first");
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
+```

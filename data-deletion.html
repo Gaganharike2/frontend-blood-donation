@@ -1,0 +1,346 @@
+```html id="qpxb7h"
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>LifeLink | Data Deletion</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:#f4f6fb;
+font-family:Segoe UI;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#e63946;
+}
+
+.sidebar{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.content{
+background:white;
+padding:40px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.section-title{
+margin-top:40px;
+}
+
+footer{
+margin-top:50px;
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-light bg-white shadow-sm">
+
+<div class="container">
+
+<span class="logo">LifeLink</span>
+
+<a href="index.html" class="btn btn-outline-danger btn-sm">
+Home
+</a>
+
+</div>
+
+</nav>
+
+
+<div class="container mt-5">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="sidebar">
+
+<h5>Sections</h5>
+
+<ul class="nav flex-column">
+
+<li class="nav-item">
+<a class="nav-link" href="#intro">Overview</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#rights">Your Rights</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#request">Submit Request</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#process">Deletion Process</a>
+</li>
+
+</ul>
+
+<hr>
+
+<button class="btn btn-danger w-100" onclick="downloadPolicy()">
+Download Deletion Policy
+</button>
+
+</div>
+
+</div>
+
+
+<div class="col-md-9">
+
+<div class="content">
+
+<h2>Data Deletion Request</h2>
+
+<p class="text-muted">
+Request removal of your personal data from LifeLink.
+</p>
+
+
+<h4 id="intro" class="section-title">Overview</h4>
+
+<p>
+
+LifeLink respects user privacy. You may request deletion of
+your personal information, donor records, and account data.
+
+</p>
+
+
+<h4 id="rights" class="section-title">Your Rights</h4>
+
+<ul>
+
+<li>Request deletion of personal data</li>
+<li>Remove donor participation history</li>
+<li>Delete account permanently</li>
+<li>Withdraw data consent</li>
+<li>Request anonymization of records</li>
+
+</ul>
+
+
+<h4 id="request" class="section-title">Submit Data Deletion Request</h4>
+
+<form id="deleteForm">
+
+<div class="mb-3">
+
+<label class="form-label">Email Address</label>
+
+<input type="email" class="form-control" id="email" required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">Reason for Deletion</label>
+
+<select class="form-control" id="reason">
+
+<option>Privacy Concern</option>
+
+<option>No longer using platform</option>
+
+<option>Incorrect data</option>
+
+<option>Other</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">Additional Notes</label>
+
+<textarea class="form-control" id="notes"></textarea>
+
+</div>
+
+<button type="button" class="btn btn-danger" onclick="sendDeletionRequest()">
+
+Submit Request
+
+</button>
+
+</form>
+
+
+<div id="otpSection" style="display:none">
+
+<h4 class="section-title">Verify Request (OTP)</h4>
+
+<input type="text" class="form-control" placeholder="Enter OTP" id="otp">
+
+<button class="btn btn-success mt-3" onclick="verifyOTP()">
+
+Verify & Confirm Deletion
+
+</button>
+
+</div>
+
+
+<h4 id="process" class="section-title">Deletion Process</h4>
+
+<p>
+
+After verification, LifeLink will securely remove your data
+from databases, servers, and associated systems within
+the compliance period.
+
+</p>
+
+
+<div class="alert alert-warning">
+
+⚠ Some records required by healthcare regulations
+may be retained for legal compliance.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+© 2026 LifeLink Blood Donation Platform
+
+</footer>
+
+
+<script>
+
+function sendDeletionRequest(){
+
+let email=document.getElementById("email").value;
+
+let reason=document.getElementById("reason").value;
+
+let notes=document.getElementById("notes").value;
+
+fetch("/api/delete-request",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+email:email,
+
+reason:reason,
+
+notes:notes
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+alert("Deletion request submitted. OTP sent to email.");
+
+document.getElementById("otpSection").style.display="block";
+
+});
+
+}
+
+
+function verifyOTP(){
+
+let otp=document.getElementById("otp").value;
+
+fetch("/api/verify-delete",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+otp:otp
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+alert("Account deletion request confirmed.");
+
+});
+
+}
+
+
+function downloadPolicy(){
+
+fetch("/api/data-deletion-policy")
+
+.then(res=>res.blob())
+
+.then(data=>{
+
+let url=window.URL.createObjectURL(data);
+
+let a=document.createElement("a");
+
+a.href=url;
+
+a.download="LifeLink_Data_Deletion_Policy.pdf";
+
+a.click();
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
+```

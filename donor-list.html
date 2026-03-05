@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeLink - Donor Directory</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+background:#f4f6fb;
+}
+.sidebar{
+height:100vh;
+background:linear-gradient(180deg,#ff416c,#ff4b2b);
+color:white;
+position:fixed;
+width:240px;
+padding:20px;
+}
+.sidebar a{
+color:white;
+display:block;
+padding:10px;
+text-decoration:none;
+border-radius:8px;
+margin-bottom:8px;
+}
+.sidebar a:hover{
+background:rgba(255,255,255,0.2);
+}
+.main{
+margin-left:250px;
+padding:30px;
+}
+.card{
+border:none;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+.badge-available{
+background:#28a745;
+}
+.badge-blood{
+background:#ff416c;
+}
+.filter-box{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h4>🩸 LifeLink</h4>
+<hr>
+<a href="dashboard.html"><i class="fa fa-home"></i> Dashboard</a>
+<a href="#"><i class="fa fa-users"></i> Donor List</a>
+<a href="#"><i class="fa fa-bell"></i> Requests</a>
+<a href="#"><i class="fa fa-map"></i> Map View</a>
+<a href="#"><i class="fa fa-shield-alt"></i> Security</a>
+</div>
+
+<div class="main">
+
+<h2 class="mb-4">Donor Directory</h2>
+
+<!-- FILTER ENGINE -->
+<div class="filter-box mb-4">
+<div class="row g-3">
+
+<div class="col-md-3">
+<select class="form-select" id="bloodFilter">
+<option value="">Select Blood Group</option>
+<option>A+</option>
+<option>B+</option>
+<option>O+</option>
+<option>AB+</option>
+</select>
+</div>
+
+<div class="col-md-3">
+<input type="text" class="form-control" placeholder="City">
+</div>
+
+<div class="col-md-3">
+<select class="form-select">
+<option>Availability</option>
+<option>Available</option>
+<option>Busy</option>
+</select>
+</div>
+
+<div class="col-md-3">
+<button class="btn btn-danger w-100" onclick="loadDonors()">
+<i class="fa fa-search"></i> Search
+</button>
+</div>
+
+</div>
+</div>
+
+<!-- AI SUGGESTION -->
+<div class="alert alert-info mb-4" id="aiBox">
+AI analyzing regional shortage...
+</div>
+
+<!-- DONOR RESULTS -->
+<div class="row" id="donorContainer">
+</div>
+
+<!-- PAGINATION -->
+<nav class="mt-4">
+<ul class="pagination justify-content-center">
+<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+<li class="page-item"><a class="page-link" href="#">1</a></li>
+<li class="page-item"><a class="page-link" href="#">2</a></li>
+<li class="page-item"><a class="page-link" href="#">Next</a></li>
+</ul>
+</nav>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* AJAX LOAD DONORS */
+function loadDonors(){
+let container=document.getElementById("donorContainer");
+container.innerHTML="<p>Loading donors...</p>";
+
+fetch("https://jsonplaceholder.typicode.com/users?_limit=6")
+.then(res=>res.json())
+.then(data=>{
+container.innerHTML="";
+data.forEach(user=>{
+container.innerHTML+=`
+<div class="col-md-4 mb-4">
+<div class="card p-3">
+<div class="d-flex justify-content-between">
+<h5>${user.name}</h5>
+<span class="badge badge-blood">O+</span>
+</div>
+<p><i class="fa fa-map-marker-alt"></i> ${user.address.city}</p>
+<p><span class="badge badge-available">Available</span></p>
+<p>Reliability Score: 92%</p>
+<div class="d-flex justify-content-between">
+<button class="btn btn-sm btn-outline-primary">
+<i class="fa fa-user"></i> View
+</button>
+<button class="btn btn-sm btn-outline-success">
+<i class="fa fa-paper-plane"></i> Request
+</button>
+<button class="btn btn-sm btn-outline-danger">
+<i class="fa fa-comment"></i> Chat
+</button>
+</div>
+</div>
+</div>
+`;
+});
+});
+}
+
+/* INITIAL LOAD */
+loadDonors();
+
+/* AI SIMULATION */
+setTimeout(()=>{
+document.getElementById("aiBox").innerText =
+"AI Suggestion: High demand for O+ in your region. 5 eligible donors nearby.";
+},2000);
+
+</script>
+
+</body>
+</html>
